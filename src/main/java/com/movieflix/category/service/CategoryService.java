@@ -1,46 +1,37 @@
 package com.movieflix.category.service;
 
-import com.movieflix.category.dto.CategoryCreateDTO;
-import com.movieflix.category.dto.CategoryResponseDTO;
+import com.movieflix.category.request.CategoryRequest;
+import com.movieflix.category.response.CategoryResponseDTO;
 import com.movieflix.category.mapper.CategoryMapper;
-import com.movieflix.category.model.CategoryModel;
+import com.movieflix.category.model.Category;
 import com.movieflix.category.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository repository;
-    @Autowired
-    private CategoryMapper mapper;
+    private final CategoryRepository repository;
 
-    @Transactional
-    public CategoryResponseDTO create (CategoryCreateDTO dto){
-        CategoryModel model = mapper.toModel(dto);
-        CategoryModel saved = repository.save(model);
-        return mapper.toResponseDTO(saved);
+    public Category save(Category category) {
+        return repository.save(category);
     }
 
-    public List<CategoryModel> findAll (){
+    public List<Category> findAll (){
         return repository.findAll();
     }
 
-    public CategoryModel findById (Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category Not Found"));
+    public Optional<Category> findById(Long id) {
+        return repository.findById(id);
     }
 
-//    public CategoryModel update (Long id, CategoryModel categoryUpdate){
-//        return repository.
-//    }
-
-    public void Delete (@PathVariable Long id){
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

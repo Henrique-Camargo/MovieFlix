@@ -1,21 +1,28 @@
 package com.movieflix.category.mapper;
 
-import com.movieflix.category.dto.CategoryCreateDTO;
-import com.movieflix.category.dto.CategoryResponseDTO;
-import com.movieflix.category.model.CategoryModel;
+import com.movieflix.category.request.CategoryRequest;
+import com.movieflix.category.response.CategoryResponseDTO;
+import com.movieflix.category.model.Category;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.stereotype.Component;
 
-@Component
+@UtilityClass
 public class CategoryMapper {
 
-    public CategoryModel toModel(CategoryCreateDTO dto){
-        CategoryModel model = new CategoryModel();
-        model.setName(dto.name());
-        return model;
+    public static Category toCategory(CategoryRequest categoryRequest) {
+        return Category
+                .builder()
+                .name(categoryRequest.name())
+                .build();
     }
 
-    public CategoryResponseDTO toResponseDTO(CategoryModel model){
-        return new CategoryResponseDTO(model.getId(), model.getName());
+    public static CategoryResponseDTO toCategoryResponse(Category category) {
+        return CategoryResponseDTO
+                .builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
     }
 
 }

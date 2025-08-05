@@ -1,28 +1,60 @@
 package com.movieflix.category.controller;
 
-import com.movieflix.category.dto.CategoryCreateDTO;
-import com.movieflix.category.dto.CategoryResponseDTO;
+import com.movieflix.category.mapper.CategoryMapper;
+import com.movieflix.category.request.CategoryRequest;
+import com.movieflix.category.response.CategoryResponseDTO;
+import com.movieflix.category.model.Category;
 import com.movieflix.category.service.CategoryService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/movieflix/category")
+@RequiredArgsConstructor
 public class CategoryController {
 
-    @Autowired
-    private CategoryService service;
+    private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDTO> create (@Valid @RequestBody CategoryCreateDTO dto){
-        CategoryResponseDTO responseDto = service.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    public ResponseEntity<CategoryResponseDTO> createCategory(@Valid @RequestBody CategoryRequest request) {
+        Category category = CategoryMapper.toCategory(request);
+        Category savedCategory = categoryService.save(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CategoryMapper.toCategoryResponse(savedCategory));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryResponseDTO>> findAll() {
+        List<CategoryResponseDTO> categories = categoryService.findAll().stream()
+                .map(CategoryMapper::toCategoryResponse)
+                .toList();
+
+        return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> find(@PathVariable Long id) {
+        return categoryService.findById(id)
+                .map(category -> ResponseEntity.ok(CategoryMapper.toCategoryResponse(category)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            categoryService.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
