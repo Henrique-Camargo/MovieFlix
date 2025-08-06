@@ -2,17 +2,17 @@ package com.movieflix.streaming.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Entity
-@Table(name = "tb_streaming")
+@Builder
+@Table(name = "streaming")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StreamingModel {
+public class Streaming {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
