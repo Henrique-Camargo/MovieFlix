@@ -1,4 +1,4 @@
-package com.movieflix.category.dto.request;
+package com.movieflix.category.request;
 
 import jakarta.validation.constraints.NotBlank;
 
