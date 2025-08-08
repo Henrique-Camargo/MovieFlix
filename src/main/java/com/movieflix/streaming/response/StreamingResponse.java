@@ -1,4 +1,10 @@
 package com.movieflix.streaming;
 
-public record StreamingResponse() {
+import lombok.Builder;
+
+@Builder
+public record StreamingResponse(
+        Long id,
+        String name
+) {
 }
