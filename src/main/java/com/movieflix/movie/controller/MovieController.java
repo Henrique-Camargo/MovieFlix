@@ -1,5 +1,6 @@
 package com.movieflix.movie.controller;
 
+import com.movieflix.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,4 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/movieflix/movie")
 @RequiredArgsConstructor
 public class MovieController {
+
+    private final MovieService service;
+
 }
