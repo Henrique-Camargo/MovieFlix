@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movieflix/movie")
@@ -38,6 +39,31 @@ public class MovieController {
         return service.findById(id)
                 .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieResponse> update(@PathVariable Long id, @RequestBody MovieRequest request){
+        return service.update(id, MovieMapper.toMovie(request))
+                .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> findByCategory(@RequestParam Long category){
+        return ResponseEntity.ok(service.findMovieByCategories(category).stream()
+                .map(MovieMapper::toMovieResponse)
+                .toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        Optional<Movie> optmovie = service.findById(id);
+        if (optmovie.isPresent()){
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

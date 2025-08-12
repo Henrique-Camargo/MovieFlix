@@ -18,7 +18,9 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository repository;
+
     private final CategoryService categoryService;
+
     private final StreamingService streamingService;
 
     public Movie save (Movie movie){
@@ -29,6 +31,10 @@ public class MovieService {
 
     public List<Movie> findAll (){
         return repository.findAll();
+    }
+
+    public List<Movie> findMovieByCategories(Long categoryId){
+        return repository.findMovieByCategories(List.of(Category.builder().id(categoryId).build()));
     }
 
     public Optional<Movie> findById(Long id){
@@ -48,5 +54,36 @@ public class MovieService {
                     streamingService.findById(streaming.getId()).ifPresent(streamingFound::add));
             return streamingFound;
     }
+
+    public Optional<Movie> update(Long movieId, Movie updateMovie){
+        Optional<Movie> optMovie = repository.findById(movieId);
+        if (optMovie.isPresent()){
+            List<Category> categories = this.findCategories(updateMovie.getCategories());
+            List<Streaming> streaming = this.findStreaming(updateMovie.getStreamings());
+
+            Movie movie = optMovie.get();
+            movie.setTitle(updateMovie.getTitle());
+            movie.setDescription(updateMovie.getDescription());
+            movie.setRealeseDate(updateMovie.getRealeseDate());
+            movie.setRating(updateMovie.getRating());
+
+            movie.getCategories().clear();
+            movie.getCategories().addAll(categories);
+
+            movie.getStreamings().clear();
+            movie.getStreamings().addAll(streaming);
+
+            repository.save(movie);
+            return Optional.of(movie);
+        }
+        return Optional.empty();
+
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
+
 
 }
