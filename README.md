@@ -35,7 +35,7 @@ O projeto conta com autenticação JWT, persistência em PostgreSQL, controle de
 
 ### 1️⃣ Clonar o repositório
 ```bash
-git clone https://github.com/seu-usuario/MovieFlix.git
+git clone https://github.com/Henrique-Camargo/MovieFlix.git
 cd MovieFlix
 ```
 ### 2️⃣ Configurar o banco de dados
