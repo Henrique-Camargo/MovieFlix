@@ -39,8 +39,10 @@ git clone https://github.com/Henrique-Camargo/MovieFlix.git
 cd MovieFlix
 ```
 ### 2️⃣ Configurar o banco de dados
-Crie um banco no PostgreSQL e ajuste o application.yml:
 
+Crie um banco no **PostgreSQL** e ajuste o `application.yml`:
+
+```yaml
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/movieflix
@@ -50,6 +52,8 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+```
+
 
 ### 3️⃣ Executar com Docker (opcional)
 docker compose up -d
@@ -68,7 +72,8 @@ Após rodar o projeto, a documentação estará disponível em:
 Criar integração com frontend (React/Angular)
 Adicionar testes de integração mais robustos
 
-🧑‍💻 Autor
-Feito por Henrique Camargo 👋
+## 🧑‍💻 Autor
+
+Feito por **Henrique Camargo** 👋  
 🔗 [LinkedIn](https://www.linkedin.com/in/henriquecamargo-dev/) | [GitHub](https://github.com/Henrique-Camargo)
 ---
