@@ -1,9 +1,10 @@
 package com.movieflix.streaming.controller;
 
-import com.movieflix.streaming.StreamingResponse;
+import com.movieflix.docs.StreamingDocs;
 import com.movieflix.streaming.mapper.StreamingMapper;
 import com.movieflix.streaming.model.Streaming;
 import com.movieflix.streaming.request.StreamingRequest;
+import com.movieflix.streaming.response.StreamingResponse;
 import com.movieflix.streaming.service.StreamingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/movieflix/streaming")
 @RequiredArgsConstructor
-public class StreamingController {
+public class StreamingController implements StreamingDocs {
 
     private final StreamingService service;
 
     @PostMapping
-    public ResponseEntity<StreamingResponse> save(@Valid @RequestBody StreamingRequest request){
+    public ResponseEntity<com.movieflix.streaming.response.StreamingResponse> save(@Valid @RequestBody StreamingRequest request){
         Streaming savedStreaming = service.save(StreamingMapper.toStreaming(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.toStreamingResponse(savedStreaming));
     }

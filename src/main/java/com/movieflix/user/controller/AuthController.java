@@ -1,6 +1,7 @@
 package com.movieflix.user.controller;
 
 import com.movieflix.config.exception.UsernameAndPasswordInvalidException;
+import com.movieflix.docs.AuthDocs;
 import com.movieflix.user.mapper.UserMapper;
 import com.movieflix.user.model.User;
 import com.movieflix.user.request.LoginRequest;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/movieflix/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthDocs {
 
     private final UserService service;
     private final AuthenticationManager authenticationManager;

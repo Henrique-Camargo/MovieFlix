@@ -2,13 +2,12 @@ package com.movieflix.movie.mapper;
 
 import com.movieflix.category.mapper.CategoryMapper;
 import com.movieflix.category.model.Category;
-import com.movieflix.category.response.CategoryResponseDTO;
 import com.movieflix.movie.model.Movie;
 import com.movieflix.movie.request.MovieRequest;
 import com.movieflix.movie.response.MovieResponse;
-import com.movieflix.streaming.StreamingResponse;
 import com.movieflix.streaming.mapper.StreamingMapper;
 import com.movieflix.streaming.model.Streaming;
+import com.movieflix.streaming.response.StreamingResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class MovieMapper {
 
     public static MovieResponse toMovieResponse(Movie movie){
 
-        List<CategoryResponseDTO> categoryList = movie.getCategories().stream()
+        List<com.movieflix.category.response.CategoryResponseDTO> categoryList = movie.getCategories().stream()
                 .map(category -> CategoryMapper.toCategoryResponse(category))
                 .toList();
 

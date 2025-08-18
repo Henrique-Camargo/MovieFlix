@@ -5,6 +5,7 @@ import com.movieflix.category.request.CategoryRequest;
 import com.movieflix.category.response.CategoryResponseDTO;
 import com.movieflix.category.model.Category;
 import com.movieflix.category.service.CategoryService;
+import com.movieflix.docs.CategoryDocs;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,12 +19,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movieflix/category")
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryController implements CategoryDocs {
 
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDTO> createCategory(@Valid @RequestBody CategoryRequest request) {
+    public ResponseEntity<CategoryResponseDTO> save(@Valid @RequestBody CategoryRequest request) {
         Category savedCategory = categoryService.save(CategoryMapper.toCategory(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(CategoryMapper.toCategoryResponse(savedCategory));
     }

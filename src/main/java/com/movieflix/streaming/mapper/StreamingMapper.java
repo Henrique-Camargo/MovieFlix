@@ -1,8 +1,8 @@
 package com.movieflix.streaming.mapper;
 
-import com.movieflix.streaming.StreamingResponse;
 import com.movieflix.streaming.model.Streaming;
 import com.movieflix.streaming.request.StreamingRequest;
+import com.movieflix.streaming.response.StreamingResponse;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

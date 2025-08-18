@@ -1,5 +1,6 @@
 package com.movieflix.movie.controller;
 
+import com.movieflix.docs.MovieDocs;
 import com.movieflix.movie.mapper.MovieMapper;
 import com.movieflix.movie.model.Movie;
 import com.movieflix.movie.request.MovieRequest;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movieflix/movie")
 @RequiredArgsConstructor
-public class MovieController {
+public class MovieController implements MovieDocs {
 
     private final MovieService service;
 
