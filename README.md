@@ -38,7 +38,7 @@ O projeto conta com autenticação JWT, persistência em PostgreSQL, controle de
 git clone https://github.com/seu-usuario/MovieFlix.git
 cd MovieFlix
 ```
-###2️⃣ Configurar o banco de dados
+##2️⃣ Configurar o banco de dados
 Crie um banco no PostgreSQL e ajuste o application.yml:
 
 spring:
@@ -51,10 +51,10 @@ spring:
       ddl-auto: validate
     show-sql: true
 
-###3️⃣ Executar com Docker (opcional)
+##3️⃣ Executar com Docker (opcional)
 docker compose up -d
 
-###4️⃣ Rodar o projeto
+##4️⃣ Rodar o projeto
 ./mvnw spring-boot:run
 
 📖 Documentação da API
