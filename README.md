@@ -56,10 +56,14 @@ spring:
 
 
 ### 3️⃣ Executar com Docker (opcional)
+```bash
 docker compose up -d
+```
 
 ### 4️⃣ Rodar o projeto
+```bash
 ./mvnw spring-boot:run
+```
 
 📖 Documentação da API
 
